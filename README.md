@@ -8,10 +8,6 @@
 
 Refer to [CONTRIBUTING.md](./CONTRIBUTING.md)
 
-## Building the Desktop Application
-
-_TODO_
-
 ---
 
 # LICENSE

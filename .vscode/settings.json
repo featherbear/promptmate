@@ -1,0 +1,5 @@
+{
+    "javascript.validate.enable": true,
+    "standard.engine": "standardx",
+    "editor.defaultFormatter": "numso.prettier-standard-vscode"
+}
