@@ -6,7 +6,7 @@
 
 # Development / Contributing
 
-_TODO_
+Refer to [CONTRIBUTING.md](./CONTRIBUTING.md)
 
 ## Building the Desktop Application
 
