@@ -1,4 +1,6 @@
 <script lang="ts">
+  import stub from "./stub";
+
   const requestAnimFrame =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -7,13 +9,20 @@
       window.setTimeout(callback, 1000 / 60);
     };
 
+  let scrollOpts: {
+    scrollElem?: HTMLElement;
+    isScrolling: boolean;
+    scrollSpeed: number;
+    scrollVal?: any;
+  } = {
+    isScrolling: false,
+    scrollSpeed: 2,
+  };
+
   function handleGrab(status: boolean) {
     if (!scrollOpts.isScrolling) return;
     (status ? disableScroll : enableScroll)();
   }
-
-  let contentIsMirrored = false;
-  const toggleMirroredView = () => (contentIsMirrored = !contentIsMirrored);
 
   const enableScroll = () => {
     // if (!scrollOpts.isScrolling) return;
@@ -37,18 +46,10 @@
     }
   };
 
-  import stub from "./stub";
   import { attachScrollDrag } from "./ScrollUtil";
 
-  let scrollOpts: {
-    scrollElem?: HTMLElement;
-    isScrolling: boolean;
-    scrollSpeed: number;
-    scrollVal?: any;
-  } = {
-    isScrolling: false,
-    scrollSpeed: 2,
-  };
+  let contentIsMirrored = false;
+  const toggleMirroredView = () => (contentIsMirrored = !contentIsMirrored);
 </script>
 
 <button on:click={toggleMirroredView}>Mirror</button>
