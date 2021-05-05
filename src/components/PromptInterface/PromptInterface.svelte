@@ -33,9 +33,13 @@
     display: flex;
     flex-direction: column;
 
+    header,
+    footer {
+      user-select: none;
+    }
+
     section {
       flex: 1;
-
       position: relative;
 
       .content {
@@ -46,6 +50,7 @@
         bottom: 0;
 
         overflow-y: scroll;
+        cursor: grab;
 
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* Internet Explorer 10+ */
@@ -54,14 +59,9 @@
           cursor: grabbing;
           user-select: none;
         }
-        
+
         &:-webkit-scrollbar {
           display: none;
-        }
-
-        & {
-          cursor: grab;
-          overflow: auto;
         }
       }
 
