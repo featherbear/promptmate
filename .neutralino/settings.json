@@ -1,0 +1,17 @@
+{
+    "appname": "promptmate",
+    "appport": "0",
+    "mode": "window",
+    "url": "/",
+    "window": {
+        "title": "Promptmate",
+        "width": "1000",
+        "height": "700",
+        "fullscreen": false,
+        "alwaysontop": false,
+        "iconfile": "app_icon.png",
+        "enableinspector": true,
+        "borderless": false,
+        "maximize": false
+    }
+}
