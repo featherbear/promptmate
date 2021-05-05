@@ -52,28 +52,22 @@
   const toggleMirroredView = () => (contentIsMirrored = !contentIsMirrored);
 </script>
 
-<button on:click={toggleMirroredView}>Mirror</button>
-<button on:click={toggleScroll}
-  >{scrollOpts.isScrolling ? "Stop" : "Start"} Scroll</button
->
 <div class="interface">
   <header>
-    <!-- Controls go here -->
-    // controls here
+    <button on:click={toggleMirroredView}>Mirror</button>
+    <button on:click={toggleScroll}
+      >{scrollOpts.isScrolling ? "Stop" : "Start"} Scroll</button
+    >
   </header>
   <section class:mirrored={contentIsMirrored}>
     <!-- TODO: Edit mode -->
     <div
       class="content"
       bind:this={scrollOpts.scrollElem}
-      use:attachScrollDrag={{
-        grabStart() {
-          handleGrab(true);
-        },
-        grabEnd() {
-          handleGrab(false);
-        },
-      }}
+      on:mousedown={({ buttons }) =>
+        [1, 4].includes(buttons) && handleGrab(true)}
+      on:mouseup={() => handleGrab(false)}
+      use:attachScrollDrag
     >
       {stub}
     </div>
