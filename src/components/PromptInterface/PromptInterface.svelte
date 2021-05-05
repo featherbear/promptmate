@@ -3,6 +3,7 @@
   const toggleMirroredView = () => (contentIsMirrored = !contentIsMirrored);
 
   import stub from "./stub";
+  import { attachScrollDrag } from "./ScrollUtil";
 </script>
 
 <!-- <button on:click={toggleMirroredView} /> -->
@@ -13,7 +14,7 @@
   </header>
   <section class:mirrored={contentIsMirrored}>
     <!-- TODO: Edit mode -->
-    <div class="content">
+    <div class="content" use:attachScrollDrag>
       {stub}
     </div>
     <!-- Main teleprompter content go here -->
@@ -38,6 +39,8 @@
       position: relative;
 
       .content {
+        // scroll-behavior: smooth;
+
         position: absolute;
         top: 0;
         bottom: 0;
@@ -47,8 +50,18 @@
         scrollbar-width: none; /* Firefox */
         -ms-overflow-style: none; /* Internet Explorer 10+ */
 
+        &:global(.grabbing) {
+          cursor: grabbing;
+          user-select: none;
+        }
+        
         &:-webkit-scrollbar {
           display: none;
+        }
+
+        & {
+          cursor: grab;
+          overflow: auto;
         }
       }
 
