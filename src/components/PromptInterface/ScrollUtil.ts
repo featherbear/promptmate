@@ -1,4 +1,10 @@
-export function attachScrollDrag (elem: HTMLElement): any {
+export function attachScrollDrag (
+  elem: HTMLElement,
+  callbacks?: {
+    grabStart?: Function
+    grabEnd?: Function
+  }
+): any {
   let pos = { top: 0, y: 0 }
 
   const onMouseMove = (e: MouseEvent): void => {
@@ -8,6 +14,7 @@ export function attachScrollDrag (elem: HTMLElement): any {
 
   const onMouseUp = (): void => {
     elem.classList.remove('grabbing')
+    callbacks?.grabEnd(elem)
 
     elem.removeEventListener('mousemove', onMouseMove)
     elem.removeEventListener('mouseup', onMouseUp)
@@ -17,6 +24,7 @@ export function attachScrollDrag (elem: HTMLElement): any {
     if (e.buttons !== 1) return
 
     elem.classList.add('grabbing')
+    callbacks?.grabStart(elem)
 
     pos = {
       top: elem.scrollTop,
