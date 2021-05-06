@@ -9,8 +9,13 @@
       window.setTimeout(callback, 1000 / 60);
     };
 
+  let options: {
+    fontSize: number;
+  } = {
+    fontSize: 48,
+  };
+
   let scrollOpts: {
-    scrollElem?: HTMLElement;
     isScrolling: boolean;
     scrollSpeed: number;
     scrollVal?: any;
@@ -26,8 +31,7 @@
 
   const enableScroll = () => {
     // if (!scrollOpts.isScrolling) return;
-    scrollOpts.scrollElem &&
-      (scrollOpts.scrollElem.scrollTop += scrollOpts.scrollSpeed);
+    viewElem && (viewElem.scrollTop += scrollOpts.scrollSpeed);
 
     scrollOpts.scrollVal = requestAnimFrame(enableScroll);
   };
@@ -36,6 +40,7 @@
     cancelAnimationFrame(scrollOpts.scrollVal);
   };
 
+  let viewElem;
   const toggleScroll = () => {
     scrollOpts.isScrolling = !scrollOpts.isScrolling;
 
@@ -47,7 +52,10 @@
   };
 
   import { attachScrollDrag } from "./ScrollUtil";
+  import NumberPicker from "../NumberPicker";
+  import App from "../../App.svelte";
 
+  let FS;
   let contentIsMirrored = false;
   const toggleMirroredView = () => (contentIsMirrored = !contentIsMirrored);
 </script>
@@ -58,16 +66,28 @@
     <button on:click={toggleScroll}
       >{scrollOpts.isScrolling ? "Stop" : "Start"} Scroll</button
     >
+
+    <NumberPicker inputClickable={true} />
+
+    <!-- <select>
+      <option value="...">...</option>
+    </select>
+
+    <div>
+      <label for="ctrl_fontSize">Font Size</label>
+      <input id="ctrl_fontSize" type="number" bind:value={options.fontSize} />
+    </div> -->
   </header>
   <section class:mirrored={contentIsMirrored}>
     <!-- TODO: Edit mode -->
     <div
       class="content"
-      bind:this={scrollOpts.scrollElem}
+      bind:this={viewElem}
       on:mousedown={({ buttons }) =>
         [1, 4].includes(buttons) && handleGrab(true)}
       on:mouseup={() => handleGrab(false)}
       use:attachScrollDrag
+      style={`font-size: ${options.fontSize}px`}
     >
       {stub}
     </div>
@@ -75,7 +95,7 @@
   </section>
   <footer>
     <!-- Do we need a footer -->
-    some footer text // file name blah blah
+    Document Name
   </footer>
 </div>
 
